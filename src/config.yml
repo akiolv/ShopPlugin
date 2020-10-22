@@ -1,0 +1,8 @@
+database:
+  adresse: "C:/Users/antoi/Desktop/Fichier_perso/dev/ShopPlugin/db/shopplugin.db"
+  user: ""
+  password: ""
+
+jeu:
+  money: 0
+  nom-money: "\u20AC"

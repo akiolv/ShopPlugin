@@ -1,0 +1,5 @@
+main: fr.pwetpwet.shopPlugin.ShopPlugin
+
+version: 1.0
+
+name: ShopPlugin

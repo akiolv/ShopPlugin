@@ -14,7 +14,6 @@ public class NewPlayerListerner implements Listener {
     private ShopPlugin main;
 
     public NewPlayerListerner(ShopPlugin shopPlugin) {
-
         this.main = shopPlugin;
     }
 

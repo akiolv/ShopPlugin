@@ -4,4 +4,7 @@ version: 1.0
 
 name: ShopPlugin
 
-command:
+commands:
+  shop:
+    description: Permet d'afficher l'argent ou autres choses
+    permission: shop.use

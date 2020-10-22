@@ -14,7 +14,7 @@ public class ShopPlugin extends JavaPlugin{
         String password = getConfig().getString("database.password");
         getServer().getPluginManager().registerEvents(new NewPlayerListerner(this), this);
 
-        getCommand("show").setExecutor(new CommandShow(this));
+        getCommand("shop").setExecutor(new CommandShow(this));
 
         System.out.println(getConfig().getString("database.adresse"));
 

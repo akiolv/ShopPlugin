@@ -19,8 +19,7 @@ public class CommandShow implements CommandExecutor {
 
         if(commandSender instanceof Player && command.getName().equalsIgnoreCase("shop")){
             Player player = (Player) commandSender;
-            if(args.length == 1 && args[1].equalsIgnoreCase("banque")){
-                
+            if(args.length == 1 && args[0].equalsIgnoreCase("banque")){
                 String uuid = player.getUniqueId().toString();
                 String pseudo = player.getName();
 
@@ -36,7 +35,6 @@ public class CommandShow implements CommandExecutor {
                 player.sendMessage("Il faut mettre quelque chose derrière zebi");
             }
         }
-        commandSender.sendMessage("oui");
         return false;
     }
 }

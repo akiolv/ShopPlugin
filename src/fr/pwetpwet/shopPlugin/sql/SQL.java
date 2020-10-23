@@ -50,4 +50,58 @@ public class SQL {
         }
         return currency;
     }
+
+    public void ajoutObjet(String fichierSQL, String username, String password, String uuid, String pseudo, String itemCoded, int prix){
+        try {
+            System.out.println("[Status] Connection to database");
+            Class.forName("org.sqlite.JDBC");
+            if(username!= "" && password != "") {
+                con = DriverManager.getConnection("jdbc:sqlite:" + fichierSQL, username, password);
+            } else {
+                con = DriverManager.getConnection("jdbc:sqlite:" + fichierSQL);
+            }
+            System.out.println("[Status] Connected");
+
+            // Inscription
+            System.out.println("[STATUS] Mise en vente...");
+            Statement statement = con.createStatement();
+            int result = statement.executeUpdate("INSERT INTO vente VALUES ('" + uuid + "', \'" + prix + "', '" + itemCoded + "')");
+            System.out.println("[STATUS] Item en vente");
+
+            // Deconnection
+            statement.close();
+
+            // Recupération Max(Id)
+        } catch (SQLException | ClassNotFoundException throwables) {
+            System.out.println(" Erreur exécution requête !");
+            System.out.println(throwables);
+        }
+    }
+
+    public void retirerObjet(String fichierSQL, String username, String password, String uuid, String pseudo, String itemCoded, int prix){
+        try {
+            System.out.println("[Status] Connection to database");
+            Class.forName("org.sqlite.JDBC");
+            if(username!= "" && password != "") {
+                con = DriverManager.getConnection("jdbc:sqlite:" + fichierSQL, username, password);
+            } else {
+                con = DriverManager.getConnection("jdbc:sqlite:" + fichierSQL);
+            }
+            System.out.println("[Status] Connected");
+
+            // Inscription
+            System.out.println("[STATUS] Mise en vente...");
+            Statement statement = con.createStatement();
+            int result = statement.executeUpdate("DELETE FROM vente WHERE uuid='" + uuid + "' AND prix= " + prix + " AND objet='" + itemCoded + "')");
+            System.out.println("[STATUS] Item en vente");
+
+            // Deconnection
+            statement.close();
+
+            // Recupération Max(Id)
+        } catch (SQLException | ClassNotFoundException throwables) {
+            System.out.println(" Erreur exécution requête !");
+            System.out.println(throwables);
+        }
+    }
 }

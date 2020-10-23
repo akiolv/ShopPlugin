@@ -17,9 +17,9 @@ public class CommandShow implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
-        if(commandSender instanceof Player && command.getName().equalsIgnoreCase("shop")){
+        if(commandSender instanceof Player && command.getName().equalsIgnoreCase("shop")) {
             Player player = (Player) commandSender;
-            if(args.length == 1 && args[0].equalsIgnoreCase("banque")){
+            if (args.length == 1 && args[0].equalsIgnoreCase("banque")) {
                 String uuid = player.getUniqueId().toString();
                 String pseudo = player.getName();
 
@@ -30,7 +30,9 @@ public class CommandShow implements CommandExecutor {
                 SQL bdd = new SQL();
                 int currency = bdd.initNewPlayer(fichierSQL, user, password, uuid, pseudo);
 
-                player.sendMessage("§2Tu as actuellement §c" + currency + " " + main.getConfig().getString("jeu.nom-money") +"§2 sur ce compte.");
+                player.sendMessage("§2Tu as actuellement §c" + currency + " " + main.getConfig().getString("jeu.nom-money") + "§2 sur ce compte.");
+            } else if (args.length == 1 && args[0].equalsIgnoreCase("sell")) {
+
             } else {
                 player.sendMessage("Il faut mettre quelque chose derrière zebi");
             }

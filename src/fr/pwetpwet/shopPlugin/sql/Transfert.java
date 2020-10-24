@@ -28,15 +28,22 @@ public class Transfert {
 
         SQL bdd = new SQL();
         bdd.ajoutObjet(fichierSQL, user, password, uuid, pseudo, base64Item, prix);
+    }
 
-        Inventory inventory = player.getInventory();
-        int indexItem = inventory.first(item);
-        ItemStack invItem = inventory.getItem(indexItem);
-        int nbrItem = invItem.getAmount();
-        if(nbrItem <= 1) {
-            inventory.clear(indexItem);
-        } else {
-            invItem.setAmount(invItem.getAmount()-1);
-        }
+    public void achat(Player player, ItemStack item){
+
+        EncodingItem encodedItem = new EncodingItem(item);
+        String base64Item = encodedItem.codeItem();
+
+        String fichierSQL = main.getConfig().getString("database.adresse");
+        String user = main.getConfig().getString("database.user");
+        String password = main.getConfig().getString("database.password");
+
+        String uuid = player.getUniqueId().toString();
+        String pseudo = player.getName();
+
+        SQL bdd = new SQL();
+        bdd.retirerObjet(fichierSQL, user, password, uuid, pseudo, base64Item);
+
     }
 }

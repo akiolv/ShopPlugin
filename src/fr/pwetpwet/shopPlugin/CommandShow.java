@@ -44,11 +44,6 @@ public class CommandShow implements CommandExecutor {
                 Inventory inv = Bukkit.createInventory(null, 9, "§8Vente");
                 player.openInventory(inv);
 
-//                ItemStack item = null;
-//                int prix = 0;
-//                Transfert transfert = new Transfert(main);
-//                transfert.vente(player, item, prix);
-
             } else {
                 player.sendMessage("Il faut mettre quelque chose derrière zebi");
             }

@@ -52,7 +52,9 @@ public class SQL {
     }
 
     public void ajoutObjet(String fichierSQL, String username, String password, String uuid, String pseudo, String itemCoded, int prix){
+
         int actualCurrency = 0;
+
         try {
             System.out.println("[Status] Connection to database");
             Class.forName("org.sqlite.JDBC");
@@ -75,7 +77,7 @@ public class SQL {
             }
             unicite.close();
 
-            int newCurrency = actualCurrency - prix;
+            int newCurrency = actualCurrency + prix;
 
             // Inscription
             System.out.println("[STATUS] Mise en vente...");
@@ -92,7 +94,7 @@ public class SQL {
         }
     }
 
-    public void retirerObjet(String fichierSQL, String username, String password, String uuid, String pseudo, String itemCoded, int prix){
+    public void retirerObjet(String fichierSQL, String username, String password, String uuid, String pseudo, String itemCoded){
 
         String uuidVendeur = null;
         int balanceAcheteur = Integer.parseInt(null);
@@ -125,12 +127,12 @@ public class SQL {
             ResultSet infoAcheteur = statement.executeQuery("SELECT uuid, pseudo, balance FROM monnaie WHERE uuid='" + uuid +"'");
             balanceAcheteur = infoAcheteur.getInt("balance");
 
-            int newBalanceVendeur = balanceVendeur + prix;
-            int newBalanceAcheteur = balanceAcheteur - prix;
+            int newBalanceVendeur = balanceVendeur + prixObjet;
+            int newBalanceAcheteur = balanceAcheteur - prixObjet;
 
             // Inscription
             System.out.println("[STATUS] Mise en vente...");
-            int result = statement.executeUpdate("DELETE FROM vente WHERE uuid='" + uuid + "' AND prix= " + prix + " AND objet='" + itemCoded + "')");
+            int result = statement.executeUpdate("DELETE FROM vente WHERE uuid='" + uuid + "' AND prix= " + prixObjet + " AND objet='" + itemCoded + "')");
             int result2 = statement.executeUpdate("UPDATE monnaie SET balance = " + newBalanceVendeur + " WHERE uuid = '" + uuidVendeur +"'");
             int result3 = statement.executeUpdate("UPDATE monnaie SET balance = " + newBalanceAcheteur + " WHERE uuid = '" + uuid +"'");
             System.out.println("[STATUS] Item en vente");

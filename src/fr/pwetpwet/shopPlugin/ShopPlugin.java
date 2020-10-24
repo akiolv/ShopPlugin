@@ -18,7 +18,7 @@ public class ShopPlugin extends JavaPlugin{
 
         System.out.println(getConfig().getString("database.adresse"));
 
-        System.out.println("Plugin allumé");
+        System.out.println("Plugin allume");
     }
 
     @Override

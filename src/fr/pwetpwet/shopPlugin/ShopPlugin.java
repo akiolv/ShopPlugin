@@ -1,5 +1,6 @@
 package fr.pwetpwet.shopPlugin;
 
+import fr.pwetpwet.shopPlugin.sql.SQL;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ShopPlugin extends JavaPlugin{
@@ -16,7 +17,8 @@ public class ShopPlugin extends JavaPlugin{
 
         getCommand("shop").setExecutor(new CommandShow(this));
 
-        System.out.println(getConfig().getString("database.adresse"));
+        SQL bdd = new SQL();
+        bdd.initBDD(fichierSQL, username, password);
 
         System.out.println("Plugin allume");
     }

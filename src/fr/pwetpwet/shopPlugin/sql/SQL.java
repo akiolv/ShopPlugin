@@ -11,6 +11,32 @@ public class SQL {
     private boolean firstjoin = true;
     private int currency = 0;
 
+    public void initBDD(String fichierSQL, String username, String password){
+        // Connection
+        System.out.println(fichierSQL);
+        try {
+            System.out.println("[Status] Connection to database");
+            Class.forName("org.sqlite.JDBC");
+            if(username!= "" && password != "") {
+                con = DriverManager.getConnection("jdbc:sqlite:" + fichierSQL, username, password);
+            } else {
+                con = DriverManager.getConnection("jdbc:sqlite:" + fichierSQL);
+            }
+            System.out.println("[Status] Connected");
+
+            Statement statement = con.createStatement();
+
+            statement.execute("CREATE TABLE IF NOT EXISTS \"monnaie\" (\"uuid\"\tvarchar(150) NOT NULL UNIQUE, \"pseudo\" TEXT, \"balance\"\tINTEGER, PRIMARY KEY(\"uuid\"))");
+            statement.execute("CREATE TABLE IF NOT EXISTS \"vente\" (\"uuid\"\tvarchar(150), \"prix\" INTEGER, \"objet\"\tTEXT, PRIMARY KEY(\"uuid\"))");
+
+            statement.close();
+            con.close();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            System.out.println(" Erreur exécution requête !");
+            throwables.printStackTrace();
+        }
+    }
+
     public int initNewPlayer(String fichierSQL, String username, String password, String uuid, String pseudo) {
         // Connection
         System.out.println(fichierSQL);

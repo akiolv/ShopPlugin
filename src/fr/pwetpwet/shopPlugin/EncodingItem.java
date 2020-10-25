@@ -14,6 +14,8 @@ public class EncodingItem {
 
     private ItemStack item;
 
+    public EncodingItem(){this.item = null;}
+
     public EncodingItem(ItemStack item){
         this.item = item;
     }
@@ -41,7 +43,7 @@ public class EncodingItem {
         return encodedObject;
     }
 
-    public ItemStack decodeObjet(String encodedObject){
+    public ItemStack decodeItem(String encodedObject){
 
         ItemStack newItem = null;
 

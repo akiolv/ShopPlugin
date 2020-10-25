@@ -1,6 +1,8 @@
 package fr.pwetpwet.shopPlugin.sql;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class SQL {
 
@@ -145,5 +147,44 @@ public class SQL {
             System.out.println(" Erreur exécution requête !");
             System.out.println(throwables);
         }
+    }
+
+    public Vector<Vector> afficherItemVente(String fichierSQL, String username, String password, String cdt){
+
+        Vector<Vector> ventes = new Vector();
+
+        if (cdt != null){ cdt = new StringBuilder().append("WHERE ").append(cdt).toString();}
+
+        try {
+            System.out.println("[Status] Connection to database");
+            Class.forName("org.sqlite.JDBC");
+            if(username!= "" && password != "") {
+                con = DriverManager.getConnection("jdbc:sqlite:" + fichierSQL, username, password);
+            } else {
+                con = DriverManager.getConnection("jdbc:sqlite:" + fichierSQL);
+            }
+            System.out.println("[Status] Connected");
+
+            // Selection des items
+            Statement statement = con.createStatement();
+            ResultSet unicite = statement.executeQuery("SELECT uuid, prix, objet FROM vente");
+            while (unicite.next()) {
+                Vector temp = new Vector();
+                temp.add(unicite.getString("uuid"));
+                temp.add(unicite.getInt("prix"));
+                temp.add(unicite.getString("objet"));
+                ventes.add(temp);
+            }
+
+            // Deconnection
+            statement.close();
+
+        } catch (SQLException | ClassNotFoundException throwables) {
+            System.out.println(" Erreur exécution requête !");
+            System.out.println(throwables);
+        }
+
+        return ventes;
+
     }
 }

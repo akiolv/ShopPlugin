@@ -6,6 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.Vector;
+
 public class Transfert {
 
     private ShopPlugin main;
@@ -44,6 +47,34 @@ public class Transfert {
 
         SQL bdd = new SQL();
         bdd.retirerObjet(fichierSQL, user, password, uuid, pseudo, base64Item);
+
+    }
+
+    public Vector<Vector> afficher(String cdt){
+
+        Vector<Vector> listeVenteDecodé = new Vector();
+
+        String fichierSQL = main.getConfig().getString("database.adresse");
+        String user = main.getConfig().getString("database.user");
+        String password = main.getConfig().getString("database.password");
+
+        SQL bdd = new SQL();
+        Vector<Vector> ventes = bdd.afficherItemVente(fichierSQL, user, password, cdt);
+
+        for(Vector l : ventes){
+            Vector temp = new Vector();
+            temp.add(l.get(0));
+            temp.add(l.get(1));
+
+            EncodingItem encodedItem = new EncodingItem();
+            ItemStack decodedItem = encodedItem.decodeItem((String) l.get(2));
+
+            temp.add(decodedItem);
+
+            listeVenteDecodé.add(temp);
+        }
+
+        return listeVenteDecodé;
 
     }
 }

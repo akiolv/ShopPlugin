@@ -6,9 +6,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Arrays;
+import java.util.Vector;
 
 public class CommandShow implements CommandExecutor {
 
@@ -42,6 +47,25 @@ public class CommandShow implements CommandExecutor {
             } else if (args.length == 1 && args[0].equalsIgnoreCase("sell")) {
 
                 Inventory inv = Bukkit.createInventory(null, 9, "§8Vente");
+                player.openInventory(inv);
+
+            } else if (args.length == 1 && args[0].equalsIgnoreCase("shop")) {
+
+                Transfert transfert = new Transfert(main);
+                Vector<Vector> ventes = transfert.afficher(null);
+
+                int min = 0;
+                if(9 < ventes.size()){ min = 9; } else { min = ventes.size(); }
+
+                Inventory inv = Bukkit.createInventory(null, 9, "§8Ventes");
+
+                for(int i = 0; i < min; i++){
+                    Vector temp = ventes.get(i);
+                    ItemStack item = (ItemStack) temp.get(2);
+                    ItemMeta itemM = item.getItemMeta();
+                    inv.addItem(item);
+                }
+
                 player.openInventory(inv);
 
             } else {
